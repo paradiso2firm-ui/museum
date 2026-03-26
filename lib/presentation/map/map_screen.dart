@@ -367,10 +367,13 @@ class _CarouselCard extends StatelessWidget {
       decoration: BoxDecoration(
         color: AppColors.surfaceContainerLowest,
         borderRadius: BorderRadius.circular(12),
-        border: Border.all(
-          color: AppColors.surfaceContainerHigh.withValues(alpha: 0.5),
-          width: 0.5,
-        ),
+        boxShadow: [
+          BoxShadow(
+            offset: const Offset(0, 8),
+            blurRadius: 24,
+            color: AppColors.ambientShadow,
+          ),
+        ],
       ),
       clipBehavior: Clip.antiAlias,
       child: Column(

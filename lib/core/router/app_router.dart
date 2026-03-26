@@ -6,6 +6,7 @@ import '../../presentation/map/map_screen.dart';
 import '../../presentation/saved/saved_screen.dart';
 import '../../presentation/profile/profile_screen.dart';
 import '../../presentation/exhibitions/exhibition_detail_screen.dart';
+import '../../presentation/explore/gallery_detail_screen.dart';
 
 final _rootNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -30,6 +31,13 @@ final appRouter = GoRouter(
                   parentNavigatorKey: _rootNavigatorKey,
                   builder: (context, state) => ExhibitionDetailScreen(
                     exhibitionId: state.pathParameters['id']!,
+                  ),
+                ),
+                GoRoute(
+                  path: 'gallery/:id',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => GalleryDetailScreen(
+                    galleryId: state.pathParameters['id']!,
                   ),
                 ),
               ],

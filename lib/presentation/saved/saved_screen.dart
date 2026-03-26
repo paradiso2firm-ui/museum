@@ -140,8 +140,13 @@ class SavedScreen extends ConsumerWidget {
                                               ),
                                             ),
                                           ),
-                                          const Icon(Icons.favorite,
-                                              size: 16, color: AppColors.primary),
+                                          GestureDetector(
+                                            onTap: () async {
+                                              await toggleSaved(ref, exhibition.id);
+                                            },
+                                            child: const Icon(Icons.favorite,
+                                                size: 16, color: AppColors.primary),
+                                          ),
                                         ],
                                       ),
                                     ],

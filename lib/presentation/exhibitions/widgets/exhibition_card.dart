@@ -129,8 +129,8 @@ class ExhibitionCard extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border(
                 top: BorderSide(
-                  color: AppColors.outlineVariant.withValues(alpha: 0.2),
-                  width: 0.5,
+                  color: AppColors.outlineVariant.withValues(alpha: 0.15),
+                  width: 1,
                 ),
               ),
             ),

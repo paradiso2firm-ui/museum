@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/providers.dart';
@@ -54,7 +55,7 @@ class ExploreScreen extends ConsumerWidget {
                 return GalleryCard(
                   gallery: galleries[index],
                   onTap: () {
-                    // Navigate to detail or do nothing for now
+                    context.push('/explore/gallery/${galleries[index].id}');
                   },
                 );
               },

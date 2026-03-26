@@ -109,8 +109,8 @@ class GalleryCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border(
                           top: BorderSide(
-                            color: AppColors.surfaceVariant.withValues(alpha: 0.8),
-                            width: 0.5,
+                            color: AppColors.outlineVariant.withValues(alpha: 0.15),
+                            width: 1,
                           ),
                         ),
                       ),

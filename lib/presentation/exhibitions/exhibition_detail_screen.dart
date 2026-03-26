@@ -111,9 +111,12 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                                 letterSpacing: 3,
                               ),
                             ),
-                            Icon(
-                              exhibition.isSaved ? Icons.favorite : Icons.favorite_border,
-                              color: AppColors.primary,
+                            GestureDetector(
+                              onTap: () => toggleSaved(ref, exhibition.id),
+                              child: Icon(
+                                exhibition.isSaved ? Icons.favorite : Icons.favorite_border,
+                                color: AppColors.primary,
+                              ),
                             ),
                           ],
                         ),
