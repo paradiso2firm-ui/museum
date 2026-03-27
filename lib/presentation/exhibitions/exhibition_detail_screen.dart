@@ -29,9 +29,14 @@ class ExhibitionDetailScreen extends ConsumerWidget {
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
-                  backgroundColor: AppColors.surfaceContainerLowest.withValues(alpha: 0.8),
+                  backgroundColor: AppColors.surfaceContainerLowest.withValues(
+                    alpha: 0.8,
+                  ),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: AppColors.primary),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.primary,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -40,7 +45,8 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
-                    backgroundColor: AppColors.surfaceContainerLowest.withValues(alpha: 0.8),
+                    backgroundColor: AppColors.surfaceContainerLowest
+                        .withValues(alpha: 0.8),
                     child: IconButton(
                       icon: const Icon(Icons.share, color: AppColors.primary),
                       onPressed: () => showDevSnackBar(context, '공유'),
@@ -55,8 +61,10 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                     CachedNetworkImage(
                       imageUrl: exhibition.imageUrl,
                       fit: BoxFit.cover,
-                      placeholder: (_, __) => Container(color: AppColors.surfaceContainerLow),
-                      errorWidget: (_, __, ___) => Container(color: AppColors.surfaceContainerLow),
+                      placeholder: (_, __) =>
+                          Container(color: AppColors.surfaceContainerLow),
+                      errorWidget: (_, __, ___) =>
+                          Container(color: AppColors.surfaceContainerLow),
                     ),
                     // Bottom gradient
                     const Positioned(
@@ -114,7 +122,9 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                             GestureDetector(
                               onTap: () => toggleSaved(ref, exhibition.id),
                               child: Icon(
-                                exhibition.isSaved ? Icons.favorite : Icons.favorite_border,
+                                exhibition.isSaved
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
                                 color: AppColors.primary,
                               ),
                             ),
@@ -230,7 +240,9 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                       Container(
                         padding: const EdgeInsets.all(20),
                         decoration: BoxDecoration(
-                          color: AppColors.primaryFixedDim.withValues(alpha: 0.1),
+                          color: AppColors.primaryFixedDim.withValues(
+                            alpha: 0.1,
+                          ),
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Column(
@@ -254,7 +266,11 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: const Center(
-                                child: Icon(Icons.map, size: 48, color: AppColors.outline),
+                                child: Icon(
+                                  Icons.map,
+                                  size: 48,
+                                  color: AppColors.outline,
+                                ),
                               ),
                             ),
                             const SizedBox(height: 12),
@@ -321,11 +337,11 @@ class ExhibitionDetailScreen extends ConsumerWidget {
         ),
       ),
       loading: () => const Scaffold(
-        body: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+        body: Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
       ),
-      error: (e, _) => Scaffold(
-        body: Center(child: Text('Error: $e')),
-      ),
+      error: (e, _) => Scaffold(body: Center(child: Text('Error: $e'))),
     );
   }
 }
@@ -375,9 +391,7 @@ class _InfoTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
           if (subtitle != null) ...[
             const SizedBox(height: 2),

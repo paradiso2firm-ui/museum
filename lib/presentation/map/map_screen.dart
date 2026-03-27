@@ -27,10 +27,7 @@ class MapScreen extends ConsumerWidget {
             child: Stack(
               children: [
                 // Grid pattern to simulate map
-                CustomPaint(
-                  size: Size.infinite,
-                  painter: _MapGridPainter(),
-                ),
+                CustomPaint(size: Size.infinite, painter: _MapGridPainter()),
                 // Mock markers
                 galleriesAsync.when(
                   data: (galleries) => Stack(
@@ -64,9 +61,14 @@ class MapScreen extends ConsumerWidget {
             child: BackdropFilter(
               filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 12,
+                ),
                 decoration: BoxDecoration(
-                  color: AppColors.surfaceContainerLowest.withValues(alpha: 0.9),
+                  color: AppColors.surfaceContainerLowest.withValues(
+                    alpha: 0.9,
+                  ),
                   borderRadius: BorderRadius.circular(999),
                   boxShadow: [
                     BoxShadow(
@@ -78,7 +80,11 @@ class MapScreen extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    const Icon(Icons.location_on, color: AppColors.primary, size: 20),
+                    const Icon(
+                      Icons.location_on,
+                      color: AppColors.primary,
+                      size: 20,
+                    ),
                     const SizedBox(width: 10),
                     Expanded(
                       child: Text(
@@ -169,10 +175,14 @@ class _MapMarker extends StatelessWidget {
           width: isSelected ? 40 : 32,
           height: isSelected ? 40 : 32,
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary : AppColors.surfaceContainerLowest,
+            color: isSelected
+                ? AppColors.primary
+                : AppColors.surfaceContainerLowest,
             shape: BoxShape.circle,
             border: Border.all(
-              color: isSelected ? AppColors.surfaceContainerLowest : AppColors.primary.withValues(alpha: 0.4),
+              color: isSelected
+                  ? AppColors.surfaceContainerLowest
+                  : AppColors.primary.withValues(alpha: 0.4),
               width: 2,
             ),
             boxShadow: [
@@ -193,7 +203,9 @@ class _MapMarker extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
           decoration: BoxDecoration(
-            color: isSelected ? AppColors.primary : AppColors.surfaceContainerLowest.withValues(alpha: 0.9),
+            color: isSelected
+                ? AppColors.primary
+                : AppColors.surfaceContainerLowest.withValues(alpha: 0.9),
             borderRadius: BorderRadius.circular(4),
           ),
           child: Text(
@@ -201,7 +213,9 @@ class _MapMarker extends StatelessWidget {
             style: GoogleFonts.inter(
               fontSize: 9,
               fontWeight: FontWeight.w700,
-              color: isSelected ? AppColors.onPrimary : AppColors.onSurfaceVariant,
+              color: isSelected
+                  ? AppColors.onPrimary
+                  : AppColors.onSurfaceVariant,
               letterSpacing: 0.5,
             ),
           ),
@@ -228,7 +242,9 @@ class _FilterChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(999),
         border: isSelected
             ? null
-            : Border.all(color: AppColors.outlineVariant.withValues(alpha: 0.3)),
+            : Border.all(
+                color: AppColors.outlineVariant.withValues(alpha: 0.3),
+              ),
       ),
       child: Text(
         label.toUpperCase(),
@@ -340,7 +356,9 @@ class _BottomSheetPeek extends StatelessWidget {
                 ),
                 loading: () => const SizedBox(
                   height: 220,
-                  child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+                  child: Center(
+                    child: CircularProgressIndicator(color: AppColors.primary),
+                  ),
                 ),
                 error: (_, __) => const SizedBox(height: 220),
               ),
@@ -388,8 +406,10 @@ class _CarouselCard extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: exhibition.imageUrl,
                   fit: BoxFit.cover,
-                  placeholder: (_, __) => Container(color: AppColors.surfaceContainerLow),
-                  errorWidget: (_, __, ___) => Container(color: AppColors.surfaceContainerLow),
+                  placeholder: (_, __) =>
+                      Container(color: AppColors.surfaceContainerLow),
+                  errorWidget: (_, __, ___) =>
+                      Container(color: AppColors.surfaceContainerLow),
                 ),
               ),
               if (exhibition.badge != null)
@@ -397,7 +417,10 @@ class _CarouselCard extends StatelessWidget {
                   top: 10,
                   right: 10,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 8,
+                      vertical: 4,
+                    ),
                     decoration: BoxDecoration(
                       color: AppColors.primaryContainer,
                       borderRadius: BorderRadius.circular(2),
@@ -437,8 +460,12 @@ class _CarouselCard extends StatelessWidget {
                       ),
                     ),
                     Icon(
-                      exhibition.isSaved ? Icons.bookmark : Icons.bookmark_border,
-                      color: exhibition.isSaved ? AppColors.primary : AppColors.surfaceDim,
+                      exhibition.isSaved
+                          ? Icons.bookmark
+                          : Icons.bookmark_border,
+                      color: exhibition.isSaved
+                          ? AppColors.primary
+                          : AppColors.surfaceDim,
                       size: 18,
                     ),
                   ],
@@ -446,7 +473,11 @@ class _CarouselCard extends StatelessWidget {
                 const SizedBox(height: 4),
                 Row(
                   children: [
-                    const Icon(Icons.near_me, size: 12, color: AppColors.outline),
+                    const Icon(
+                      Icons.near_me,
+                      size: 12,
+                      color: AppColors.outline,
+                    ),
                     const SizedBox(width: 4),
                     Expanded(
                       child: Text(

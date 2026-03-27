@@ -62,11 +62,12 @@ class ExploreScreen extends ConsumerWidget {
             ),
           ),
           loading: () => const SliverFillRemaining(
-            child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+            child: Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            ),
           ),
-          error: (e, _) => SliverFillRemaining(
-            child: Center(child: Text('Error: $e')),
-          ),
+          error: (e, _) =>
+              SliverFillRemaining(child: Center(child: Text('Error: $e'))),
         ),
         // Bottom padding for nav bar
         const SliverPadding(padding: EdgeInsets.only(bottom: 100)),

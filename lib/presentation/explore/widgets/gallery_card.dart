@@ -37,9 +37,8 @@ class GalleryCard extends StatelessWidget {
               child: CachedNetworkImage(
                 imageUrl: gallery.imageUrl,
                 fit: BoxFit.cover,
-                placeholder: (_, __) => Container(
-                  color: AppColors.surfaceContainerLow,
-                ),
+                placeholder: (_, __) =>
+                    Container(color: AppColors.surfaceContainerLow),
                 errorWidget: (_, __, ___) => Container(
                   color: AppColors.surfaceContainerLow,
                   child: const Icon(Icons.image, color: AppColors.outline),
@@ -80,24 +79,26 @@ class GalleryCard extends StatelessWidget {
                         Wrap(
                           spacing: 6,
                           children: gallery.tags
-                              .map((tag) => Container(
-                                    padding: const EdgeInsets.symmetric(
-                                      horizontal: 8,
-                                      vertical: 3,
+                              .map(
+                                (tag) => Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 8,
+                                    vertical: 3,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surfaceContainer,
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    tag.toUpperCase(),
+                                    style: textTheme.labelSmall?.copyWith(
+                                      fontSize: 9,
+                                      color: AppColors.onSurfaceVariant,
+                                      letterSpacing: 1.2,
                                     ),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.surfaceContainer,
-                                      borderRadius: BorderRadius.circular(999),
-                                    ),
-                                    child: Text(
-                                      tag.toUpperCase(),
-                                      style: textTheme.labelSmall?.copyWith(
-                                        fontSize: 9,
-                                        color: AppColors.onSurfaceVariant,
-                                        letterSpacing: 1.2,
-                                      ),
-                                    ),
-                                  ))
+                                  ),
+                                ),
+                              )
                               .toList(),
                         ),
                       ],
@@ -109,7 +110,9 @@ class GalleryCard extends StatelessWidget {
                       decoration: BoxDecoration(
                         border: Border(
                           top: BorderSide(
-                            color: AppColors.outlineVariant.withValues(alpha: 0.15),
+                            color: AppColors.outlineVariant.withValues(
+                              alpha: 0.15,
+                            ),
                             width: 1,
                           ),
                         ),

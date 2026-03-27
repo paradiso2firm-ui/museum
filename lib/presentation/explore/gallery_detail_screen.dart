@@ -32,10 +32,14 @@ class GalleryDetailScreen extends ConsumerWidget {
               leading: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: CircleAvatar(
-                  backgroundColor:
-                      AppColors.surfaceContainerLowest.withValues(alpha: 0.8),
+                  backgroundColor: AppColors.surfaceContainerLowest.withValues(
+                    alpha: 0.8,
+                  ),
                   child: IconButton(
-                    icon: const Icon(Icons.arrow_back, color: AppColors.primary),
+                    icon: const Icon(
+                      Icons.arrow_back,
+                      color: AppColors.primary,
+                    ),
                     onPressed: () => Navigator.of(context).pop(),
                   ),
                 ),
@@ -44,11 +48,13 @@ class GalleryDetailScreen extends ConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: CircleAvatar(
-                    backgroundColor:
-                        AppColors.surfaceContainerLowest.withValues(alpha: 0.8),
+                    backgroundColor: AppColors.surfaceContainerLowest
+                        .withValues(alpha: 0.8),
                     child: IconButton(
-                      icon: const Icon(Icons.share_outlined,
-                          color: AppColors.primary),
+                      icon: const Icon(
+                        Icons.share_outlined,
+                        color: AppColors.primary,
+                      ),
                       onPressed: () => showDevSnackBar(context, '공유'),
                     ),
                   ),
@@ -113,7 +119,9 @@ class GalleryDetailScreen extends ConsumerWidget {
                           children: [
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 4),
+                                horizontal: 10,
+                                vertical: 4,
+                              ),
                               decoration: BoxDecoration(
                                 color: AppColors.primaryContainer,
                                 borderRadius: BorderRadius.circular(999),
@@ -163,22 +171,26 @@ class GalleryDetailScreen extends ConsumerWidget {
                           spacing: 8,
                           runSpacing: 8,
                           children: gallery.tags
-                              .map((tag) => Container(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 12, vertical: 6),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.surfaceContainer,
-                                      borderRadius: BorderRadius.circular(999),
+                              .map(
+                                (tag) => Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 12,
+                                    vertical: 6,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surfaceContainer,
+                                    borderRadius: BorderRadius.circular(999),
+                                  ),
+                                  child: Text(
+                                    tag.toUpperCase(),
+                                    style: textTheme.labelSmall?.copyWith(
+                                      fontSize: 10,
+                                      color: AppColors.onSurfaceVariant,
+                                      letterSpacing: 1.5,
                                     ),
-                                    child: Text(
-                                      tag.toUpperCase(),
-                                      style: textTheme.labelSmall?.copyWith(
-                                        fontSize: 10,
-                                        color: AppColors.onSurfaceVariant,
-                                        letterSpacing: 1.5,
-                                      ),
-                                    ),
-                                  ))
+                                  ),
+                                ),
+                              )
                               .toList(),
                         ),
                       ],
@@ -206,7 +218,9 @@ class GalleryDetailScreen extends ConsumerWidget {
                       child: _InfoTile(
                         icon: Icons.palette_outlined,
                         label: 'SPECIALTY',
-                        value: gallery.tags.isNotEmpty ? gallery.tags.first : 'Art',
+                        value: gallery.tags.isNotEmpty
+                            ? gallery.tags.first
+                            : 'Art',
                       ),
                     ),
                   ],
@@ -271,9 +285,11 @@ class GalleryDetailScreen extends ConsumerWidget {
               },
               loading: () => const SliverToBoxAdapter(
                 child: Center(
-                    child: CircularProgressIndicator(color: AppColors.primary)),
+                  child: CircularProgressIndicator(color: AppColors.primary),
+                ),
               ),
-              error: (_, __) => const SliverToBoxAdapter(child: SizedBox.shrink()),
+              error: (_, __) =>
+                  const SliverToBoxAdapter(child: SizedBox.shrink()),
             ),
 
             // Location section
@@ -283,8 +299,7 @@ class GalleryDetailScreen extends ConsumerWidget {
                 child: Container(
                   padding: const EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    color:
-                        AppColors.primaryFixedDim.withValues(alpha: 0.08),
+                    color: AppColors.primaryFixedDim.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Column(
@@ -308,15 +323,21 @@ class GalleryDetailScreen extends ConsumerWidget {
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: const Center(
-                          child: Icon(Icons.map_outlined,
-                              size: 40, color: AppColors.outline),
+                          child: Icon(
+                            Icons.map_outlined,
+                            size: 40,
+                            color: AppColors.outline,
+                          ),
                         ),
                       ),
                       const SizedBox(height: 12),
                       Row(
                         children: [
-                          const Icon(Icons.location_on_outlined,
-                              size: 16, color: AppColors.primary),
+                          const Icon(
+                            Icons.location_on_outlined,
+                            size: 16,
+                            color: AppColors.primary,
+                          ),
                           const SizedBox(width: 6),
                           Expanded(
                             child: Text(
@@ -363,12 +384,11 @@ class GalleryDetailScreen extends ConsumerWidget {
         ),
       ),
       loading: () => const Scaffold(
-        body:
-            Center(child: CircularProgressIndicator(color: AppColors.primary)),
+        body: Center(
+          child: CircularProgressIndicator(color: AppColors.primary),
+        ),
       ),
-      error: (e, _) => Scaffold(
-        body: Center(child: Text('Error: $e')),
-      ),
+      error: (e, _) => Scaffold(body: Center(child: Text('Error: $e'))),
     );
   }
 }
@@ -416,9 +436,7 @@ class _InfoTile extends StatelessWidget {
           const SizedBox(height: 4),
           Text(
             value,
-            style: textTheme.titleSmall?.copyWith(
-              fontWeight: FontWeight.w700,
-            ),
+            style: textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w700),
           ),
         ],
       ),

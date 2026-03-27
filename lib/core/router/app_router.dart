@@ -79,7 +79,8 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/profile',
               builder: (context, state) => ProfileScreen(
-                onExhibitionTap: (id) => context.push('/profile/exhibition/$id'),
+                onExhibitionTap: (id) =>
+                    context.push('/profile/exhibition/$id'),
               ),
               routes: [
                 GoRoute(

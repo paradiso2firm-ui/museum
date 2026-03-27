@@ -66,18 +66,14 @@ abstract final class AppTheme {
       cardTheme: CardThemeData(
         elevation: 0,
         color: AppColors.surfaceContainerLowest,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       ),
       filledButtonTheme: FilledButtonThemeData(
         style: FilledButton.styleFrom(
           backgroundColor: AppColors.primary,
           foregroundColor: AppColors.onPrimary,
           shape: const StadiumBorder(),
-          textStyle: AppTypography.labelLarge.copyWith(
-            letterSpacing: 1.5,
-          ),
+          textStyle: AppTypography.labelLarge.copyWith(letterSpacing: 1.5),
         ),
       ),
       chipTheme: ChipThemeData(

@@ -15,9 +15,7 @@ class AppShell extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: const GlassmorphicAppBar(),
       body: Padding(
-        padding: EdgeInsets.only(
-          top: MediaQuery.of(context).padding.top + 56,
-        ),
+        padding: EdgeInsets.only(top: MediaQuery.of(context).padding.top + 56),
         child: navigationShell,
       ),
       bottomNavigationBar: AppBottomNavBar(

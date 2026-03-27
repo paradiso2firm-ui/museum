@@ -44,9 +44,7 @@ final savedExhibitionsProvider = FutureProvider<List<Exhibition>>((ref) {
   return ref.watch(exhibitionRepositoryProvider).getSavedExhibitions();
 });
 
-final userProfileProvider = Provider<UserProfile>(
-  (_) => MockData.userProfile,
-);
+final userProfileProvider = Provider<UserProfile>((_) => MockData.userProfile);
 
 // Toggle saved and refresh all dependent providers
 Future<void> toggleSaved(WidgetRef ref, String exhibitionId) async {

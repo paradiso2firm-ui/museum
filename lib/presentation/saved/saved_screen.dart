@@ -55,11 +55,17 @@ class SavedScreen extends ConsumerWidget {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Icon(Icons.bookmark_border, size: 48, color: AppColors.outline),
+                        Icon(
+                          Icons.bookmark_border,
+                          size: 48,
+                          color: AppColors.outline,
+                        ),
                         const SizedBox(height: 12),
                         Text(
                           'No saved exhibitions yet',
-                          style: textTheme.bodyLarge?.copyWith(color: AppColors.outline),
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: AppColors.outline,
+                          ),
                         ),
                       ],
                     ),
@@ -95,17 +101,20 @@ class SavedScreen extends ConsumerWidget {
                                 child: CachedNetworkImage(
                                   imageUrl: exhibition.imageUrl,
                                   fit: BoxFit.cover,
-                                  placeholder: (_, __) =>
-                                      Container(color: AppColors.surfaceContainerLow),
-                                  errorWidget: (_, __, ___) =>
-                                      Container(color: AppColors.surfaceContainerLow),
+                                  placeholder: (_, __) => Container(
+                                    color: AppColors.surfaceContainerLow,
+                                  ),
+                                  errorWidget: (_, __, ___) => Container(
+                                    color: AppColors.surfaceContainerLow,
+                                  ),
                                 ),
                               ),
                               Expanded(
                                 child: Padding(
                                   padding: const EdgeInsets.all(16),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         exhibition.title,
@@ -128,24 +137,35 @@ class SavedScreen extends ConsumerWidget {
                                       const SizedBox(height: 10),
                                       Row(
                                         children: [
-                                          const Icon(Icons.calendar_today,
-                                              size: 12, color: AppColors.primary),
+                                          const Icon(
+                                            Icons.calendar_today,
+                                            size: 12,
+                                            color: AppColors.primary,
+                                          ),
                                           const SizedBox(width: 4),
                                           Expanded(
                                             child: Text(
                                               exhibition.dateRange,
-                                              style: textTheme.bodySmall?.copyWith(
-                                                color: AppColors.onSurfaceVariant,
-                                                fontSize: 11,
-                                              ),
+                                              style: textTheme.bodySmall
+                                                  ?.copyWith(
+                                                    color: AppColors
+                                                        .onSurfaceVariant,
+                                                    fontSize: 11,
+                                                  ),
                                             ),
                                           ),
                                           GestureDetector(
                                             onTap: () async {
-                                              await toggleSaved(ref, exhibition.id);
+                                              await toggleSaved(
+                                                ref,
+                                                exhibition.id,
+                                              );
                                             },
-                                            child: const Icon(Icons.favorite,
-                                                size: 16, color: AppColors.primary),
+                                            child: const Icon(
+                                              Icons.favorite,
+                                              size: 16,
+                                              color: AppColors.primary,
+                                            ),
                                           ),
                                         ],
                                       ),
@@ -161,11 +181,12 @@ class SavedScreen extends ConsumerWidget {
                   ),
                 ),
           loading: () => const SliverFillRemaining(
-            child: Center(child: CircularProgressIndicator(color: AppColors.primary)),
+            child: Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
+            ),
           ),
-          error: (e, _) => SliverFillRemaining(
-            child: Center(child: Text('Error: $e')),
-          ),
+          error: (e, _) =>
+              SliverFillRemaining(child: Center(child: Text('Error: $e'))),
         ),
 
         const SliverPadding(padding: EdgeInsets.only(bottom: 100)),

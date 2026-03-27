@@ -34,12 +34,15 @@ class ExhibitionCard extends StatelessWidget {
                   CachedNetworkImage(
                     imageUrl: exhibition.imageUrl,
                     fit: BoxFit.cover,
-                    placeholder: (_, __) => Container(
-                      color: AppColors.surfaceContainerLow,
-                    ),
+                    placeholder: (_, __) =>
+                        Container(color: AppColors.surfaceContainerLow),
                     errorWidget: (_, __, ___) => Container(
                       color: AppColors.surfaceContainerLow,
-                      child: const Icon(Icons.image, size: 48, color: AppColors.outline),
+                      child: const Icon(
+                        Icons.image,
+                        size: 48,
+                        color: AppColors.outline,
+                      ),
                     ),
                   ),
                   // Badge
@@ -48,7 +51,10 @@ class ExhibitionCard extends StatelessWidget {
                       bottom: 14,
                       left: 14,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 12,
+                          vertical: 6,
+                        ),
                         decoration: BoxDecoration(
                           color: AppColors.primaryContainer,
                           borderRadius: BorderRadius.circular(999),
@@ -141,7 +147,11 @@ class ExhibitionCard extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.calendar_today, size: 14, color: AppColors.primary),
+                    const Icon(
+                      Icons.calendar_today,
+                      size: 14,
+                      color: AppColors.primary,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       exhibition.dateRange,
@@ -155,7 +165,11 @@ class ExhibitionCard extends StatelessWidget {
                 Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    const Icon(Icons.payments_outlined, size: 14, color: AppColors.primary),
+                    const Icon(
+                      Icons.payments_outlined,
+                      size: 14,
+                      color: AppColors.primary,
+                    ),
                     const SizedBox(width: 6),
                     Text(
                       exhibition.priceLabel,

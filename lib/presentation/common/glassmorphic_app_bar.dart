@@ -4,7 +4,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/dev_snackbar.dart';
 
-class GlassmorphicAppBar extends StatelessWidget implements PreferredSizeWidget {
+class GlassmorphicAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   final String title;
   final Widget? leading;
   final List<Widget>? actions;
