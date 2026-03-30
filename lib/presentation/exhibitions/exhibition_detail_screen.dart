@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/providers.dart';
-import '../../core/utils/dev_snackbar.dart';
 
 class ExhibitionDetailScreen extends ConsumerWidget {
   final String exhibitionId;
@@ -49,7 +50,11 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                         .withValues(alpha: 0.8),
                     child: IconButton(
                       icon: const Icon(Icons.share, color: AppColors.primary),
-                      onPressed: () => showDevSnackBar(context, '공유'),
+                      onPressed: () {
+                        Share.share(
+                          '${exhibition.title} at ${exhibition.venue}\n${exhibition.dateRange}',
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -257,19 +262,67 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                               ),
                             ),
                             const SizedBox(height: 12),
-                            // Map placeholder
-                            Container(
-                              height: 160,
-                              width: double.infinity,
-                              decoration: BoxDecoration(
-                                color: AppColors.surfaceContainer,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child: const Center(
-                                child: Icon(
-                                  Icons.map,
-                                  size: 48,
-                                  color: AppColors.outline,
+                            // Map image — tappable to open maps app
+                            GestureDetector(
+                              onTap: () {
+                                if (exhibition.latitude != null && exhibition.longitude != null) {
+                                  final uri = Uri.parse(
+                                    'https://maps.apple.com/?q=${Uri.encodeComponent(exhibition.venue)}&ll=${exhibition.latitude},${exhibition.longitude}',
+                                  );
+                                  launchUrl(uri, mode: LaunchMode.externalApplication);
+                                }
+                              },
+                              child: Container(
+                                height: 160,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: AppColors.surfaceContainer,
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                clipBehavior: Clip.antiAlias,
+                                child: Stack(
+                                  fit: StackFit.expand,
+                                  children: [
+                                    if (exhibition.latitude != null && exhibition.longitude != null)
+                                      CachedNetworkImage(
+                                        imageUrl:
+                                            'https://maps.googleapis.com/maps/api/staticmap?center=${exhibition.latitude},${exhibition.longitude}&zoom=15&size=600x300&scale=2&maptype=roadmap&style=feature:all|saturation:-100&markers=color:0xA43C12|${exhibition.latitude},${exhibition.longitude}&key=',
+                                        fit: BoxFit.cover,
+                                        errorWidget: (_, __, ___) => const Center(
+                                          child: Icon(Icons.map, size: 48, color: AppColors.outline),
+                                        ),
+                                      )
+                                    else
+                                      const Center(
+                                        child: Icon(Icons.map, size: 48, color: AppColors.outline),
+                                      ),
+                                    Positioned(
+                                      bottom: 8,
+                                      right: 8,
+                                      child: Container(
+                                        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                        decoration: BoxDecoration(
+                                          color: AppColors.surfaceContainerLowest.withValues(alpha: 0.9),
+                                          borderRadius: BorderRadius.circular(4),
+                                        ),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            const Icon(Icons.open_in_new, size: 12, color: AppColors.primary),
+                                            const SizedBox(width: 4),
+                                            Text(
+                                              'Open in Maps',
+                                              style: GoogleFonts.inter(
+                                                fontSize: 10,
+                                                fontWeight: FontWeight.w600,
+                                                color: AppColors.primary,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),
@@ -289,7 +342,14 @@ class ExhibitionDetailScreen extends ConsumerWidget {
 
                     // Action buttons
                     FilledButton(
-                      onPressed: () => showDevSnackBar(context, '티켓 구매'),
+                      onPressed: () {
+                        // Open venue website search as ticket proxy
+                        final query = Uri.encodeComponent('${exhibition.title} ${exhibition.venue} tickets');
+                        launchUrl(
+                          Uri.parse('https://www.google.com/search?q=$query'),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
                       style: FilledButton.styleFrom(
                         minimumSize: const Size.fromHeight(52),
                         backgroundColor: AppColors.primary,
@@ -309,7 +369,15 @@ class ExhibitionDetailScreen extends ConsumerWidget {
                     ),
                     const SizedBox(height: 12),
                     OutlinedButton.icon(
-                      onPressed: () => showDevSnackBar(context, '캘린더 추가'),
+                      onPressed: () {
+                        // Create a calendar event URL
+                        final title = Uri.encodeComponent(exhibition.title);
+                        final location = Uri.encodeComponent(exhibition.address ?? exhibition.venue);
+                        launchUrl(
+                          Uri.parse('https://www.google.com/calendar/render?action=TEMPLATE&text=$title&location=$location'),
+                          mode: LaunchMode.externalApplication,
+                        );
+                      },
                       icon: const Icon(Icons.calendar_today, size: 16),
                       label: Text(
                         'ADD TO CALENDAR',

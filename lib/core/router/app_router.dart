@@ -50,6 +50,15 @@ final appRouter = GoRouter(
             GoRoute(
               path: '/map',
               builder: (context, state) => const MapScreen(),
+              routes: [
+                GoRoute(
+                  path: 'exhibition/:id',
+                  parentNavigatorKey: _rootNavigatorKey,
+                  builder: (context, state) => ExhibitionDetailScreen(
+                    exhibitionId: state.pathParameters['id']!,
+                  ),
+                ),
+              ],
             ),
           ],
         ),

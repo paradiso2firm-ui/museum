@@ -3,9 +3,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/providers.dart';
-import '../../core/utils/dev_snackbar.dart';
 import '../exhibitions/widgets/exhibition_card.dart';
 
 class GalleryDetailScreen extends ConsumerWidget {
@@ -55,7 +56,11 @@ class GalleryDetailScreen extends ConsumerWidget {
                         Icons.share_outlined,
                         color: AppColors.primary,
                       ),
-                      onPressed: () => showDevSnackBar(context, '공유'),
+                      onPressed: () {
+                        Share.share(
+                          '${gallery.name} — ${gallery.description}\n${gallery.priceLabel}',
+                        );
+                      },
                     ),
                   ),
                 ),
@@ -314,19 +319,67 @@ class GalleryDetailScreen extends ConsumerWidget {
                         ),
                       ),
                       const SizedBox(height: 12),
-                      // Map placeholder
-                      Container(
-                        height: 140,
-                        width: double.infinity,
-                        decoration: BoxDecoration(
-                          color: AppColors.surfaceContainer,
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        child: const Center(
-                          child: Icon(
-                            Icons.map_outlined,
-                            size: 40,
-                            color: AppColors.outline,
+                      // Map image — tappable to open maps app
+                      GestureDetector(
+                        onTap: () {
+                          if (gallery.latitude != null && gallery.longitude != null) {
+                            final uri = Uri.parse(
+                              'https://maps.apple.com/?q=${Uri.encodeComponent(gallery.name)}&ll=${gallery.latitude},${gallery.longitude}',
+                            );
+                            launchUrl(uri, mode: LaunchMode.externalApplication);
+                          }
+                        },
+                        child: Container(
+                          height: 140,
+                          width: double.infinity,
+                          decoration: BoxDecoration(
+                            color: AppColors.surfaceContainer,
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          clipBehavior: Clip.antiAlias,
+                          child: Stack(
+                            fit: StackFit.expand,
+                            children: [
+                              if (gallery.latitude != null && gallery.longitude != null)
+                                CachedNetworkImage(
+                                  imageUrl:
+                                      'https://maps.googleapis.com/maps/api/staticmap?center=${gallery.latitude},${gallery.longitude}&zoom=15&size=600x280&scale=2&maptype=roadmap&style=feature:all|saturation:-100&markers=color:0xA43C12|${gallery.latitude},${gallery.longitude}&key=',
+                                  fit: BoxFit.cover,
+                                  errorWidget: (_, __, ___) => const Center(
+                                    child: Icon(Icons.map_outlined, size: 40, color: AppColors.outline),
+                                  ),
+                                )
+                              else
+                                const Center(
+                                  child: Icon(Icons.map_outlined, size: 40, color: AppColors.outline),
+                                ),
+                              Positioned(
+                                bottom: 8,
+                                right: 8,
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.surfaceContainerLowest.withValues(alpha: 0.9),
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      const Icon(Icons.open_in_new, size: 12, color: AppColors.primary),
+                                      const SizedBox(width: 4),
+                                      Text(
+                                        'Open in Maps',
+                                        style: GoogleFonts.inter(
+                                          fontSize: 10,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.primary,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
@@ -360,7 +413,14 @@ class GalleryDetailScreen extends ConsumerWidget {
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 48),
                 child: FilledButton(
-                  onPressed: () => showDevSnackBar(context, '방문 예약'),
+                  onPressed: () {
+                    if (gallery.latitude != null && gallery.longitude != null) {
+                      final uri = Uri.parse(
+                        'https://maps.apple.com/?daddr=${gallery.latitude},${gallery.longitude}&dirflg=w',
+                      );
+                      launchUrl(uri, mode: LaunchMode.externalApplication);
+                    }
+                  },
                   style: FilledButton.styleFrom(
                     minimumSize: const Size.fromHeight(52),
                     backgroundColor: AppColors.primary,
