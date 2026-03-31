@@ -1,6 +1,9 @@
 # Firebase
 .firebase/
 
+# Project documentation (local only)
+PROJECT.md
+
 # Miscellaneous
 *.class
 *.log
