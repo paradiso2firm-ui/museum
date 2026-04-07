@@ -54,3 +54,46 @@ Future<void> toggleSaved(WidgetRef ref, String exhibitionId) async {
 
 // Navigation state
 final selectedTabProvider = StateProvider<int>((_) => 0);
+
+// Search & filter state — Explore (Galleries)
+final gallerySearchQueryProvider = StateProvider<String>((_) => '');
+final galleryTagFilterProvider = StateProvider<String?>((_) => null);
+
+final filteredGalleriesProvider = Provider<AsyncValue<List<Gallery>>>((ref) {
+  final galleriesAsync = ref.watch(galleriesProvider);
+  final query = ref.watch(gallerySearchQueryProvider).toLowerCase().trim();
+  final tag = ref.watch(galleryTagFilterProvider);
+
+  return galleriesAsync.whenData((galleries) {
+    return galleries.where((g) {
+      final matchesQuery = query.isEmpty ||
+          g.name.toLowerCase().contains(query) ||
+          g.description.toLowerCase().contains(query) ||
+          g.tags.any((t) => t.toLowerCase().contains(query));
+      final matchesTag = tag == null || g.tags.contains(tag);
+      return matchesQuery && matchesTag;
+    }).toList();
+  });
+});
+
+// Search & filter state — Exhibitions
+final exhibitionSearchQueryProvider = StateProvider<String>((_) => '');
+final exhibitionBadgeFilterProvider = StateProvider<String?>((_) => null);
+
+final filteredExhibitionsProvider = Provider<AsyncValue<List<Exhibition>>>((ref) {
+  final exhibitionsAsync = ref.watch(exhibitionsProvider);
+  final query = ref.watch(exhibitionSearchQueryProvider).toLowerCase().trim();
+  final badge = ref.watch(exhibitionBadgeFilterProvider);
+
+  return exhibitionsAsync.whenData((exhibitions) {
+    return exhibitions.where((e) {
+      final matchesQuery = query.isEmpty ||
+          e.title.toLowerCase().contains(query) ||
+          e.venue.toLowerCase().contains(query);
+      final matchesBadge = badge == null ||
+          (badge == 'Free' && e.priceLabel.toLowerCase().contains('free')) ||
+          (e.badge == badge);
+      return matchesQuery && matchesBadge;
+    }).toList();
+  });
+});
